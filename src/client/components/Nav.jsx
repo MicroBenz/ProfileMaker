@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import CSSModules from 'react-css-modules';
+import cssmodules from 'react-css-modules';
 
 import styles from './Nav.scss';
 
-@CSSModules(styles, { allowMultiple: true })
+@cssmodules(styles, { allowMultiple: true })
 export default class Nav extends Component {
   render() {
     return (

@@ -1,0 +1,17 @@
+{
+  "extends": "airbnb",
+  "plugins": [
+    "import"
+  ],
+  "parser": "babel-eslint",
+  "rules": {
+    "brace-style": [
+      "error",
+      "stroustrup"
+    ]
+  },
+  "env": {
+    "browser": true,
+    "node": true
+  }
+}
