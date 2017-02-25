@@ -4,7 +4,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
     resolve: {
-        extensions: ['.js', '.jsx', '.scss', '.sass'],
+        extensions: ['.js', '.jsx', '.css', '.scss', '.sass'],
     },
     module: {
         rules: [
@@ -12,6 +12,13 @@ module.exports = {
                 test: /\.jsx?$/,
                 use: ['babel-loader'],
                 exclude: [/node_modules/],
+            },
+            {
+                test: /\.css$/,
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: ['css-loader'],
+                }),
             },
             {
                 test: /\.(scss|sass)$/,
@@ -32,6 +39,17 @@ module.exports = {
                         },
                     ],
                 }),
+            },
+            {
+                test: /\.woff($|\?)|\.woff2($|\?)|\.ttf($|\?)|\.eot($|\?)|\.svg($|\?)/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: 'public/fonts/[name].[ext]',
+                        },
+                    },
+                ],
             },
         ],
     },
