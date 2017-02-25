@@ -7,10 +7,10 @@ module.exports = {
         'react-hot-loader/patch',
         'webpack-dev-server/client?http://localhost:8080',
         'webpack/hot/only-dev-server',
-        './src/client/index.jsx',
+        './src/client/index.jsx'
     ],
     resolve: {
-        extensions: ['.js', '.jsx', '.scss'],
+        extensions: ['.js', '.jsx', '.scss', '.sass'],
     },
     module: {
         rules: [
@@ -20,7 +20,7 @@ module.exports = {
                 exclude: [/node_modules/],
             },
             {
-                test: /\.scss$/,
+                test: /\.(scss|sass)$/,
                 use: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
                     use: [
@@ -38,7 +38,7 @@ module.exports = {
                         },
                     ],
                 }),
-            }
+            },
         ],
     },
     output: {
