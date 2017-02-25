@@ -7,7 +7,7 @@ class Test extends Component {
     render() {
         return (
             <div>
-                <button styleName="button is-primary">Button</button>
+                <button styleName="button is-primary">Button IS PRIMARY</button>
                 <h1 styleName="title">TestOne againnn</h1>
             </div>
         );
