@@ -1,14 +1,12 @@
 import React from 'react';
 
-import Test from './components/Test';
-import TestTwo from './components/Test2';
+import Nav from './components/Nav';
 
 const App = () => (
-    <div>
-        <h1>Appsss has update</h1>
-        <Test />
-        <TestTwo />
-    </div>
+  <div>
+    <Nav />
+    <h1>Appsss has update</h1>
+  </div>
 );
 
 export default App;
