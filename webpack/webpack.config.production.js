@@ -7,7 +7,7 @@ const commonConfig = require('./webpack.config.common');
 
 module.exports = merge(commonConfig, {
   entry: {
-    main: './src/client/index.jsx',
+    main: './client/src/index.jsx',
   },
   plugins: [
     new OptimizeCssAssetsPlugin(),
