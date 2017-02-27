@@ -1,8 +1,17 @@
+/* eslint-disable import/no-extraneous-dependencies */
 const webpack = require('webpack');
 const { resolve } = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
+  entry: {
+    vendor: [
+      'react',
+      'react-dom',
+      'font-awesome/css/font-awesome',
+      'bulma/css/bulma',
+    ],
+  },
   resolve: {
     extensions: ['.js', '.jsx', '.css', '.scss', '.sass'],
   },
@@ -35,7 +44,7 @@ module.exports = {
               },
             },
             {
-              loader: 'sass-loader'
+              loader: 'sass-loader',
             },
           ],
         }),
@@ -46,7 +55,7 @@ module.exports = {
           {
             loader: 'file-loader',
             options: {
-              name: 'public/fonts/[name].[ext]',
+              name: 'fonts/[name].[ext]',
             },
           },
         ],
@@ -54,13 +63,16 @@ module.exports = {
     ],
   },
   output: {
-    path: resolve(__dirname, '../dist'),
-    filename: 'app.bundle.js',
+    path: resolve(__dirname, '../client/dist/public'),
+    filename: '[name].bundle.js',
     publicPath: '/',
   },
   plugins: [
     new ExtractTextPlugin({
-      filename: 'app.css',
+      filename: '[name].css',
     }),
-  ]
-}
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+    }),
+  ],
+};

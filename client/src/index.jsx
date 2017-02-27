@@ -1,8 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
-import 'minireset.css';
-import 'font-awesome/css/font-awesome';
 
 import App from './App';
 
@@ -20,7 +18,7 @@ if (process.env.NODE_ENV !== 'production') {
 
   if (module.hot) {
     module.hot.accept('./App', () => {
-      render(App)
+      render(App);
     });
   }
 }

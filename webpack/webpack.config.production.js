@@ -6,7 +6,9 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const commonConfig = require('./webpack.config.common');
 
 module.exports = merge(commonConfig, {
-  entry: './src/client/index.jsx',
+  entry: {
+    main: './src/client/index.jsx',
+  },
   plugins: [
     new OptimizeCssAssetsPlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),

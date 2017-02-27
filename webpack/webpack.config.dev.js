@@ -6,17 +6,19 @@ const { resolve } = require('path');
 const commonConfig = require('./webpack.config.common');
 
 module.exports = merge(commonConfig, {
-  entry: [
-    'react-hot-loader/patch',
-    'webpack-dev-server/client?http://localhost:8080',
-    'webpack/hot/only-dev-server',
-    './src/client/index.jsx'
-  ],
+  entry: {
+    main: [
+      'react-hot-loader/patch',
+      'webpack-dev-server/client?http://localhost:8080',
+      'webpack/hot/only-dev-server',
+      './client/src/index.jsx',
+    ],
+  },
   devtool: 'inline-source-map',
   devServer: {
     hot: true,
-    contentBase: resolve(__dirname, '../dist'),
-    publicPath: '/'
+    contentBase: resolve(__dirname, '../client/dist'),
+    publicPath: '/public',
   },
   plugins: [
     new webpack.DefinePlugin({
