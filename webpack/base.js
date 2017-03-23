@@ -2,13 +2,14 @@
 const webpack = require('webpack');
 const { resolve } = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: {
-    vendor: './client/src/vendor.js',
+    vendor: resolve(__dirname, '../src/vendor.js'),
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.css', '.scss', '.sass'],
+    extensions: ['.js', '.jsx', '.css', '.scss'],
   },
   module: {
     rules: [
@@ -25,7 +26,7 @@ module.exports = {
         }),
       },
       {
-        test: /\.(scss|sass)$/,
+        test: /\.scss$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: [
@@ -33,7 +34,7 @@ module.exports = {
               loader: 'css-loader',
               options: {
                 module: true,
-                importLoaders: 1,
+                importLoaders: 2,
                 localIdentName: '[name]__[local]___[hash:base64:5]',
                 autoprefixer: true,
               },
@@ -58,9 +59,8 @@ module.exports = {
     ],
   },
   output: {
-    path: resolve(__dirname, '../client/dist/public'),
+    path: resolve(__dirname, '../dist'),
     filename: '[name].bundle.js',
-    publicPath: '/',
   },
   plugins: [
     new ExtractTextPlugin({
@@ -68,6 +68,9 @@ module.exports = {
     }),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
+    }),
+    new HtmlWebpackPlugin({
+      template: resolve(__dirname, '../src/index.html'),
     }),
   ],
 };

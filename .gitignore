@@ -1,5 +1,3 @@
 node_modules
 .vscode
-client/dist/public/*.js
-client/dist/public/*.css
-client/dist/public/fonts
+dist/

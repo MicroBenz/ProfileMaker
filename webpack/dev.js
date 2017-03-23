@@ -3,22 +3,22 @@ const webpack = require('webpack');
 const merge = require('webpack-merge');
 const { resolve } = require('path');
 
-const commonConfig = require('./webpack.config.common');
+const baseConfig = require('./base');
 
-module.exports = merge(commonConfig, {
+module.exports = merge(baseConfig, {
   entry: {
     main: [
       'react-hot-loader/patch',
       'webpack-dev-server/client?http://localhost:8080',
       'webpack/hot/only-dev-server',
-      './client/src/index.js',
+      resolve(__dirname, '../src/index.js'),
     ],
   },
   devtool: 'inline-source-map',
   devServer: {
     hot: true,
-    contentBase: resolve(__dirname, '../client/dist'),
-    publicPath: '/public',
+    contentBase: resolve(__dirname, '../dist'),
+    publicPath: '/',
     historyApiFallback: true,
   },
   plugins: [
