@@ -5,12 +5,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   entry: {
-    vendor: [
-      'react',
-      'react-dom',
-      'font-awesome/css/font-awesome',
-      'bulma/css/bulma',
-    ],
+    vendor: './client/src/vendor.js',
   },
   resolve: {
     extensions: ['.js', '.jsx', '.css', '.scss', '.sass'],
@@ -55,7 +50,7 @@ module.exports = {
           {
             loader: 'file-loader',
             options: {
-              name: 'fonts/[name].[ext]',
+              name: 'public/fonts/[name].[ext]',
             },
           },
         ],

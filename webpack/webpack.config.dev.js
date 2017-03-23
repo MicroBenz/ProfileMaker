@@ -11,7 +11,7 @@ module.exports = merge(commonConfig, {
       'react-hot-loader/patch',
       'webpack-dev-server/client?http://localhost:8080',
       'webpack/hot/only-dev-server',
-      './client/src/index.jsx',
+      './client/src/index.js',
     ],
   },
   devtool: 'inline-source-map',
@@ -19,6 +19,7 @@ module.exports = merge(commonConfig, {
     hot: true,
     contentBase: resolve(__dirname, '../client/dist'),
     publicPath: '/public',
+    historyApiFallback: true,
   },
   plugins: [
     new webpack.DefinePlugin({

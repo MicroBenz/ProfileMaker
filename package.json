@@ -10,6 +10,7 @@
     "build": "webpack --progress --config webpack/webpack.config.production.js"
   },
   "dependencies": {
+    "apisauce": "^0.11.0",
     "bulma": "^0.3.1",
     "express": "^4.14.1",
     "font-awesome": "^4.7.0",
@@ -19,7 +20,10 @@
     "react-css-modules": "^4.1.0",
     "react-dom": "^15.4.2",
     "react-redux": "^5.0.3",
-    "redux": "^3.6.0"
+    "react-router": "^4.0.0",
+    "react-router-dom": "^4.0.0",
+    "redux": "^3.6.0",
+    "redux-define": "^1.1.0"
   },
   "devDependencies": {
     "babel-core": "^6.23.1",
