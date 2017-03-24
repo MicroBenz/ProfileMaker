@@ -11,7 +11,7 @@ if (process.env.NODE_ENV !== 'production') {
       <AppContainer>
         <Component />
       </AppContainer>,
-      document.getElementById('apps')
+      document.getElementById('apps'),
     );
   };
 

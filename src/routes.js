@@ -3,34 +3,34 @@ import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Landing from './pages/Landing';
-import A from './pages/A';
-import B from './pages/B';
+import CompA from './pages/A';
+import CompB from './pages/B';
 
 const routes = [
   {
     path: '/',
     component: Landing,
+    exact: true,
   },
   {
     path: '/a',
-    component: A,
+    component: CompA,
   },
   {
     path: '/b',
-    component: B,
+    component: CompB,
   },
 ];
 
 export default () => (
-  <Router>
-    <div>
-      {routes.map((route, i) => (
-        <Route
-          key={i}
-          path={route.path}
-          component={route.component}
-        />
-      ))}
-    </div>
-  </Router>
+  <div>
+    {routes.map((route, i) => (
+      <Route
+        key={i}
+        path={route.path}
+        component={route.component}
+        exact={route.exact}
+      />
+    ))}
+  </div>
 );
