@@ -41,7 +41,13 @@ export default class App extends Component {
 
   render() {
     if (this.state.isWaitingFacebookApi) {
-      return <h1>Loading...</h1>;
+      return (
+        <div className="ball-pulse">
+          <div style={{ backgroundColor: 'red' }} />
+          <div style={{ backgroundColor: 'red' }} />
+          <div style={{ backgroundColor: 'red' }} />
+        </div>
+      );
     }
     return (
       <Router>

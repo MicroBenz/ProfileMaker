@@ -8,3 +8,4 @@ import 'redux-define';
 import 'apisauce';
 import 'font-awesome/css/font-awesome';
 import 'bulma/css/bulma';
+import 'loaders.css';

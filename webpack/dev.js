@@ -8,15 +8,15 @@ const baseConfig = require('./base');
 module.exports = merge(baseConfig, {
   entry: {
     main: [
-      'react-hot-loader/patch',
-      'webpack-dev-server/client?http://localhost:8080',
-      'webpack/hot/only-dev-server',
+      // 'react-hot-loader/patch',
+      // 'webpack-dev-server/client?http://localhost:8080',
+      // 'webpack/hot/only-dev-server',
       resolve(__dirname, '../src/index.js'),
     ],
   },
   devtool: 'inline-source-map',
   devServer: {
-    hot: true,
+    // hot: true,
     contentBase: resolve(__dirname, '../dist'),
     publicPath: '/',
     historyApiFallback: true,
@@ -25,7 +25,7 @@ module.exports = merge(baseConfig, {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('development'),
     }),
-    new webpack.HotModuleReplacementPlugin(),
+    // new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
   ],
 });

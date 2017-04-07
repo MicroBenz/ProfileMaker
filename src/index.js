@@ -1,11 +1,11 @@
 /* eslint-disable import/no-extraneous-dependencies, react/jsx-filename-extension */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { AppContainer } from 'react-hot-loader';
+// import { AppContainer } from 'react-hot-loader';
 
 import App from './App';
 
-if (process.env.NODE_ENV !== 'production') {
+/*if (process.env.NODE_ENV !== 'production') {
   const render = (Component) => {
     ReactDOM.render(
       <AppContainer>
@@ -26,4 +26,6 @@ if (process.env.NODE_ENV !== 'production') {
 
 else {
   ReactDOM.render(<App />, document.getElementById('apps'));
-}
+}*/
+
+ReactDOM.render(<App />, document.getElementById('apps'));
