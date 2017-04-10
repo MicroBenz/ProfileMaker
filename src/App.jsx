@@ -1,10 +1,21 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { Provider } from 'react-redux';
 
+import store from './store';
+import { actions as authActions } from './store/auth';
 import AppRoutes from './routes';
 import Nav from './components/nav/Nav';
 import './App.scss';
 
+// @connect(
+//   () => ({}),
+//   dispatch => ({
+//     setLogin(isLogIn) {
+//       dispatch(authActions.setLogin(isLogIn));
+//     },
+//   }),
+// )
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -24,6 +35,12 @@ export default class App extends Component {
 
       FB.getLoginStatus((response) => {
         console.log(response);
+        if (response.status === 'connected') {
+          store.dispatch(authActions.setLogin(true));
+        }
+        else {
+          store.dispatch(authActions.setLogin(false));
+        }
         this.setState({
           isWaitingFacebookApi: false,
         });
@@ -51,12 +68,14 @@ export default class App extends Component {
       );
     }
     return (
-      <Router>
-        <div style={{ width: '100%', height: '100%' }}>
-          <Nav />
-          <AppRoutes />
-        </div>
-      </Router>
+      <Provider store={store}>
+        <Router>
+          <div style={{ width: '100%', height: '100%' }}>
+            <Nav />
+            <AppRoutes />
+          </div>
+        </Router>
+      </Provider>
     );
   }
 }

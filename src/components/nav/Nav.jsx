@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import CSSModules from 'react-css-modules';
+import { connect } from 'react-redux';
 
 import styles from './Nav.scss';
 
+@connect(
+  ({ auth }) => ({
+    isLogin: auth.isLogin,
+  }),
+)
 @CSSModules(styles)
 export default class Nav extends Component {
   constructor(props) {
@@ -16,6 +22,7 @@ export default class Nav extends Component {
   }
 
   render() {
+    const { isLogin } = this.props;
     return (
       <nav className="nav has-shadow" styleName="nav">
         <div className="container">
@@ -28,14 +35,16 @@ export default class Nav extends Component {
           </div>
           <div className="nav-right">
             <div className="nav-item">
-              <a className="button is-info" onClick={this.handleOnLoginWithFB}>
-                <span className="icon">
+              { !isLogin &&
+                <a className="button is-info" onClick={this.handleOnLoginWithFB}>
                   <span className="icon">
-                    <i className="fa fa-facebook" />
+                    <span className="icon">
+                      <i className="fa fa-facebook" />
+                    </span>
                   </span>
-                </span>
-                <span>Login with Facebook</span>
-              </a>
+                  <span>Login with Facebook</span>
+                </a>
+              }
             </div>
           </div>
         </div>
