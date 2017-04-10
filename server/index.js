@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const multer = require('multer');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const FacebookTokenStrategy = require('passport-facebook-token');
@@ -24,6 +25,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(passport.initialize());
+app.use(cors());
 
 app.use('/api/', api);
 

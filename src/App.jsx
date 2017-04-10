@@ -6,6 +6,7 @@ import store from './store';
 import { actions as authActions } from './store/auth';
 import AppRoutes from './routes';
 import Nav from './components/nav/Nav';
+import { getToken } from './utils/token';
 import './App.scss';
 
 export default class App extends Component {
@@ -27,16 +28,34 @@ export default class App extends Component {
 
       FB.getLoginStatus((response) => {
         console.log(response);
-        if (response.status === 'connected') {
-          store.dispatch(authActions.setLogin(true));
+        // if (response.status === 'connected') {
+        //   store.dispatch(authActions.setLogin(true));
+        //   const { accessToken } = response.authResponse;
+        //   fetch('http://localhost:3000/api/auth/facebook/login')
+        // }
+        // else {
+        //   store.dispatch(authActions.setLogin(false));
+        // }
+        if (response.authResponse) {
+          const { accessToken } = response.authResponse;
+          store.dispatch(authActions.makeLogin(accessToken));
+          // store.dispatch(authActions.setLogin(true));
         }
         else {
           store.dispatch(authActions.setLogin(false));
+          store.dispatch(authActions.completeAuthFlow());
         }
         this.setState({
           isWaitingFacebookApi: false,
         });
       });
+      // const token = getToken();
+      // if (token) {
+      //   store.dispatch(authActions.setLogin(true));
+      // }
+      // else {
+      //   store.dispatch(authActions.setLogin(false));
+      // }
     };
 
     ((d, s, id) => {

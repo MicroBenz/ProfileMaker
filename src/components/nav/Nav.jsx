@@ -5,10 +5,12 @@ import { connect } from 'react-redux';
 
 import styles from './Nav.scss';
 import { actions as authActions } from '../../store/auth';
+import { clearToken, setToken } from '../../utils/token';
 
 @connect(
   ({ auth }) => ({
     isLogin: auth.isLogin,
+    isCompleteAuthFlow: auth.isCompleteAuthFlow,
   }),
   dispatch => ({
     setLogout() {
@@ -29,10 +31,32 @@ export default class Nav extends Component {
 
   handleOnLoginWithFB() {
     console.log('press login with fb');
-    FB.login((response) => {
-      if (response.authResponse) {
-        console.log('user logged in', response);
-        this.props.setLogin();
+    FB.login((fbResponse) => {
+      if (fbResponse.authResponse) {
+        console.log('user logged in', fbResponse);
+        // this.props.setLogin();
+        const { accessToken } = fbResponse.authResponse;
+        fetch('http://localhost:3000/api/auth/facebook/login', {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        })
+        .then(
+          (response) => {
+            console.log(response);
+            if (response.ok) return response.json();
+          },
+          (error) => {
+            console.error(error);
+          },
+        )
+        .then(
+          ({ token }) => {
+            setToken(token);
+            this.props.setLogin();
+          },
+        );
       }
       else {
         console.log('not log in');
@@ -41,11 +65,14 @@ export default class Nav extends Component {
   }
 
   handleOnLogoutWithFB() {
-    FB.logout(() => this.props.setLogout());
+    FB.logout(() => {
+      this.props.setLogout();
+      clearToken();
+    });
   }
 
   render() {
-    const { isLogin } = this.props;
+    const { isLogin, isCompleteAuthFlow } = this.props;
     return (
       <nav className="nav has-shadow" styleName="nav">
         <div className="container">
@@ -54,13 +81,13 @@ export default class Nav extends Component {
               <img src="http://bulma.io/images/bulma-logo.png" alt="Bulma logo" />
             </NavLink>
             <NavLink to="/explore" className="nav-item is-tab" activeClassName="is-active">Explore</NavLink>
-            { isLogin &&
+            { isCompleteAuthFlow && isLogin &&
               <NavLink to="/create-overlay" className="nav-item is-tab" activeClassName="is-active">Create Profile Overlay</NavLink>
             }
           </div>
           <div className="nav-right">
             <div className="nav-item">
-              { !isLogin &&
+              { isCompleteAuthFlow && !isLogin &&
                 <a className="button is-info" onClick={this.handleOnLoginWithFB}>
                   <span className="icon">
                     <span className="icon">
@@ -70,7 +97,7 @@ export default class Nav extends Component {
                   <span>Login with Facebook</span>
                 </a>
               }
-              { isLogin &&
+              { isCompleteAuthFlow && isLogin &&
                 <a className="button is-danger" onClick={this.handleOnLogoutWithFB}>
                   <span className="icon">
                     <span className="icon">
