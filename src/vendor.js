@@ -1,11 +1,13 @@
 import 'react';
 import 'react-dom';
+import 'react-css-modules';
 import 'react-router';
 import 'react-router-dom';
 import 'react-redux';
 import 'redux';
 import 'redux-define';
-import 'apisauce';
+// import 'apisauce';
+import 'whatwg-fetch';
 import 'font-awesome/css/font-awesome';
 import 'bulma/css/bulma';
 import 'loaders.css';

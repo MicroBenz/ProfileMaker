@@ -8,14 +8,6 @@ import AppRoutes from './routes';
 import Nav from './components/nav/Nav';
 import './App.scss';
 
-// @connect(
-//   () => ({}),
-//   dispatch => ({
-//     setLogin(isLogIn) {
-//       dispatch(authActions.setLogin(isLogIn));
-//     },
-//   }),
-// )
 export default class App extends Component {
   constructor(props) {
     super(props);

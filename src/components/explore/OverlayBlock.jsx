@@ -1,5 +1,6 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import CSSModules from 'react-css-modules';
+import PropTypes from 'prop-types';
 
 import styles from './OverlayBlock.scss';
 

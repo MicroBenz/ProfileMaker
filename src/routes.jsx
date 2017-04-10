@@ -32,7 +32,7 @@ const routes = [
 ];
 
 export default () => (
-  <div className="container" style={{ width: '100%', height: '100%', paddingTop: '55px' }}>
+  <div className="container" style={{ height: '100%', paddingTop: '55px' }}>
     {routes.map(route => (
       <Route
         key={route.path}
