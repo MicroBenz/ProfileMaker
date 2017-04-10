@@ -30,7 +30,7 @@ export default class App extends Component {
         appId: '326628934402249',
         cookie: true,
         xfbml: true,
-        version: 'v2.1',
+        version: 'v2.8',
       });
 
       FB.getLoginStatus((response) => {
