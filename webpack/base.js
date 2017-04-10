@@ -56,11 +56,23 @@ module.exports = {
           },
         ],
       },
+      {
+        test: /\.png/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: 'public/images/[name].[hash].[ext]',
+            },
+          },
+        ],
+      },
     ],
   },
   output: {
     path: resolve(__dirname, '../dist'),
     filename: '[name].bundle.js',
+    publicPath: '/',
   },
   plugins: [
     new ExtractTextPlugin({

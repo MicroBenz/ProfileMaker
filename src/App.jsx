@@ -3,6 +3,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 import AppRoutes from './routes';
 import Nav from './components/nav/Nav';
+import './App.scss';
 
 export default class App extends Component {
   constructor(props) {
@@ -42,7 +43,7 @@ export default class App extends Component {
   render() {
     if (this.state.isWaitingFacebookApi) {
       return (
-        <div className="ball-pulse">
+        <div className="ball-pulse" style={{ width: '100%', height: '100%' }}>
           <div style={{ backgroundColor: 'red' }} />
           <div style={{ backgroundColor: 'red' }} />
           <div style={{ backgroundColor: 'red' }} />
@@ -51,7 +52,7 @@ export default class App extends Component {
     }
     return (
       <Router>
-        <div>
+        <div style={{ width: '100%', height: '100%' }}>
           <Nav />
           <AppRoutes />
         </div>
