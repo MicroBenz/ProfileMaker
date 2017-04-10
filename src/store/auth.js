@@ -21,7 +21,6 @@ export default (state = initialState, action) => {
       };
     }
     case COMPLETED_AUTH_FLOW: {
-      console.log('state change');
       return {
         ...state,
         isCompleteAuthFlow: true,
@@ -33,6 +32,7 @@ export default (state = initialState, action) => {
     case MAKE_LOGIN.RESOLVED: {
       const { token } = action.data;
       setToken(token);
+      console.log(token);
       return {
         ...state,
         isLogin: true,

@@ -1,5 +1,18 @@
-import { create } from 'apisauce';
+import { getToken } from './token';
 
-export default create({
-  baseURL: 'localhost:5555/api/v1',
+const apiEndpoint = 'http://localhost:3000/api';
+
+export const get = path => fetch(`${apiEndpoint}/${path}`, {
+  method: 'GET',
+  headers: {
+    'x-access-token': `Bearer ${getToken()}`,
+  },
+});
+
+export const post = (path, body) => fetch(`${apiEndpoint}/${path}`, {
+  method: 'POST',
+  headers: {
+    'x-access-token': `Bearer ${getToken()}`,
+  },
+  body,
 });
