@@ -12,6 +12,7 @@ export default class CreateOverlay extends React.Component{
                 <div>
                     <input type="text" placeholder="title"/>
                     <textarea rows="3"></textarea>
+                    <input type="file" />
                     <button>save</button>
                 </div>
             </div>
