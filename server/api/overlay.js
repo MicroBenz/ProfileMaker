@@ -45,7 +45,15 @@ overlayRoutes.post('/', authMiddleware, upload.single('overlayImg'), async (req,
   res.send(overlayImages);
 });
 
-overlayRoutes.get('/:filename', (req, res) => {
+overlayRoutes.get('/:slug', async (req, res) => {
+  const { slug: reqSlug } = req.params;
+  const overlayImage = await OverlayImage.findOne({ slug: reqSlug });
+  console.log(reqSlug);
+  console.log(overlayImage);  
+  res.send(overlayImage);
+});
+
+overlayRoutes.get('/image/:filename', (req, res) => {
   res.sendFile(resolve(__dirname, `../uploads/${req.params.filename}`));
 });
 module.exports = overlayRoutes;

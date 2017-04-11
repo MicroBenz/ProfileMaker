@@ -5,52 +5,39 @@ import OverlayBlock from '../components/explore/OverlayBlock';
 
 @withRouter
 export default class ExplorePage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      overlayItems: [],
+    };
+  }
+
+  componentDidMount() {
+    fetch('http://localhost:3000/api/overlay', {
+      method: 'GET',
+    })
+    .then(response => response.json())
+    .then(overlayItems => this.setState({ overlayItems }));
+  }
+
   render() {
+    const { overlayItems } = this.state;
     const { history } = this.props;
-    console.log(history);
-    const mockArr = [
-      {
-        title: 'A',
-        description: 'Description for A',
-      },
-      {
-        title: 'B',
-        description: 'Description for B',
-      },
-      {
-        title: 'C',
-        description: 'Description for C',
-      },
-      {
-        title: 'D',
-        description: 'Description for D',
-      },
-      {
-        title: 'E',
-        description: 'Description for E',
-      },
-      {
-        title: 'F',
-        description: 'Description for F',
-      },
-      {
-        title: 'G',
-        description: 'Description for G',
-      },
-    ];
+    console.log(overlayItems);
     return (
       <div>
         <h1>Explore</h1>
         <div className="columns is-multiline" style={{ marginTop: '10px', marginBottom: '20px' }}>
-          {mockArr.map(({ title, description }) => (
+          {overlayItems.map(({ _id, title, description, slug, img }) => (
             <div className="column is-3" key={title}>
               <OverlayBlock
-                key={title}
+                key={_id}
                 title={title}
                 description={description}
+                imgPath={`http://localhost:3000/api/overlay/image/${img}`}
                 onClickBlock={() => {
-                  console.log('You click:', title, description);
-                  history.push(`/view-overlay/${title}`);
+                  console.log('You click:', slug);
+                  history.push(`/view-overlay/${slug}`);
                 }}
               />
             </div>

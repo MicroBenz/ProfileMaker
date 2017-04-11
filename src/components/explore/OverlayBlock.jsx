@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 
 import styles from './OverlayBlock.scss';
 
-const OverlayBlock = ({ title, description, onClickBlock }) => (
+const OverlayBlock = ({ title, description, imgPath, onClickBlock }) => (
   <div styleName="overlay-block" onClick={onClickBlock}>
-    <img src={require('./test.png')} alt="overlay" />
+    <img src={imgPath} alt="overlay" />
     <h2>{title}</h2>
     <p>{description}</p>
   </div>

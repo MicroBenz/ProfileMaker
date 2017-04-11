@@ -1,3 +1,33 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-export default ({ match }) => (<h1>Overlay Detail {match.params.title}</h1>);
+export default class OverlayDetail extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      overlay: [],
+    };
+  }
+
+  componentDidMount() {
+    const { match } = this.props;    
+    fetch(`http://localhost:3000/api/overlay/${match.params.slug}`, {
+      method: 'GET',
+    })
+    .then(response => response.json())
+    .then(overlay => this.setState({ overlay }));
+  }
+
+  render() {
+    const { overlay } = this.state;
+    const { match } = this.props;
+    console.log(overlay);
+    return (
+      <div>
+        <h1>OverlayDetail {match.params.slug}</h1>
+        <img style={{ width: '200px' }} src={`http://localhost:3000/api/overlay/image/${overlay.img}`} />
+        <h2>{overlay.title}</h2>
+        <h2>{overlay.description}</h2>
+      </div>
+    );
+  }
+}

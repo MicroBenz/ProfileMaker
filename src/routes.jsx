@@ -26,7 +26,7 @@ const routes = [
     component: Result,
   },
   {
-    path: '/view-overlay/:title',
+    path: '/view-overlay/:slug',
     component: OverlayDetail,
   },
 ];
