@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 module.exports = (req, res, next) => {
   // console.log('auth middleware', req.headers['x-access-token']);
   let token = req.headers['x-access-token'];
-  console.log(token);
+  // console.log(token);
   if (token) {
     token = token.split(' ')[1];
     try {

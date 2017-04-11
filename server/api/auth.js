@@ -8,13 +8,13 @@ const authRoutes = express.Router();
 authRoutes.get('/facebook/login',
   passport.authenticate('facebook-token', { session: false }),
   async (req, res) => {
-    console.log(req.user);
+    // console.log(req.user);
     const { id, name, photos } = req.user;
     let user = await User.findOne({ facebookID: id });
     if (user !== null) {
       // return JWT Token using user data
       console.log('user found');
-      console.log(user);
+      // console.log(user);
       // return res.send({ token });
     }
     else {
@@ -26,7 +26,7 @@ authRoutes.get('/facebook/login',
         profileImage: photos[0].value,
       });
       console.log('create user');
-      console.log(user);
+      // console.log(user);
       // return res.send(newUser);
     }
     const token = jwt.sign(user, process.env.TOKEN_SECRET);

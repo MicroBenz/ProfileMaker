@@ -32,7 +32,7 @@ export default (state = initialState, action) => {
     case MAKE_LOGIN.RESOLVED: {
       const { token } = action.data;
       setToken(token);
-      console.log(token);
+      // console.log(token);
       return {
         ...state,
         isLogin: true,

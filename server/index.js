@@ -16,8 +16,8 @@ passport.use('facebook-token', new FacebookTokenStrategy({
   clientID: process.env.FACEBOOK_ID,
   clientSecret: process.env.FACEBOOK_SECRET,
 }, (token, refreshToken, profile, done) => {
-  console.log('passport middleware');
-  console.log(profile, token, refreshToken);
+  // console.log('passport middleware');
+  // console.log(profile, token, refreshToken);
   return done(null, profile);
 }));
 
