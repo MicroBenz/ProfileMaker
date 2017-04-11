@@ -72,13 +72,14 @@ export default class Nav extends Component {
   }
 
   render() {
+    console.log('rerender');
     const { isLogin, isCompleteAuthFlow } = this.props;
     return (
       <nav className="nav has-shadow" styleName="nav">
         <div className="container">
           <div className="nav-left">
-            <NavLink to="/" className="nav-item">
-              <img src="http://bulma.io/images/bulma-logo.png" alt="Bulma logo" />
+            <NavLink to="/" className="nav-item" styleName="branding-wrapper">
+              <img src={require('./logo.png')} alt="ProfileMaker Logo" />
             </NavLink>
             <NavLink to="/explore" className="nav-item is-tab" activeClassName="is-active">Explore</NavLink>
             { isCompleteAuthFlow && isLogin &&

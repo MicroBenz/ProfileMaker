@@ -4,3 +4,10 @@
   left: 0;
   right: 0;
 }
+
+.branding-wrapper {
+  padding: 0;
+  img {
+    max-height: none;
+  }
+}
