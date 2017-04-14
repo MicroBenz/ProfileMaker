@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 
+@withRouter
 export default class OverlayDetail extends Component {
   constructor(props) {
     super(props);
@@ -19,7 +21,7 @@ export default class OverlayDetail extends Component {
 
   render() {
     const { overlay } = this.state;
-    const { match } = this.props;
+    const { match, history } = this.props;
     console.log(overlay);
     if (overlay.img === undefined) {
       return <div><h1>Loading...</h1></div>;
@@ -30,6 +32,7 @@ export default class OverlayDetail extends Component {
         <img style={{ width: '200px' }} src={`http://localhost:3000/api/overlay/image/${overlay.img}`} />
         <h2>{overlay.title}</h2>
         <h2>{overlay.description}</h2>
+        <a onClick={() => history.push(`/create-profile-image/${match.params.slug}`)}>Create!</a>
       </div>
     );
   }

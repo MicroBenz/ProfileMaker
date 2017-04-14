@@ -6,6 +6,7 @@ import Explore from './pages/Explore.page';
 import CreateOverlay from './pages/CreateOverlay.page';
 import Result from './pages/Result.page';
 import OverlayDetail from './pages/OverlayDetail.page';
+import CreateProfileImage from './pages/CreateProfileImage.page';
 
 const routes = [
   {
@@ -16,18 +17,27 @@ const routes = [
   {
     path: '/explore',
     component: Explore,
+    exact: true,
   },
   {
     path: '/create-overlay',
     component: CreateOverlay,
+    exact: true,
   },
   {
     path: '/create-overlay/success',
     component: Result,
+    exact: true,
   },
   {
     path: '/view-overlay/:slug',
     component: OverlayDetail,
+    exact: true,
+  },
+  {
+    path: '/create-profile-image/:slug',
+    component: CreateProfileImage,
+    exact: true,
   },
 ];
 
