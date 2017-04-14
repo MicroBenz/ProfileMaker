@@ -4,7 +4,7 @@ export default class OverlayDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      overlay: [],
+      overlay: {},
     };
   }
 
@@ -21,6 +21,9 @@ export default class OverlayDetail extends Component {
     const { overlay } = this.state;
     const { match } = this.props;
     console.log(overlay);
+    if (overlay.img === undefined) {
+      return <div><h1>Loading...</h1></div>;
+    }
     return (
       <div>
         <h1>OverlayDetail {match.params.slug}</h1>
