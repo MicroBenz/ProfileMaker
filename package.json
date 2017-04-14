@@ -15,6 +15,8 @@
     "body-parser": "^1.17.1",
     "bulma": "^0.4.0",
     "cors": "^2.8.3",
+    "cropperjs": "^1.0.0-rc",
+    "croppie": "^2.4.1",
     "dotenv": "^4.0.0",
     "express": "^4.14.1",
     "font-awesome": "^4.7.0",
