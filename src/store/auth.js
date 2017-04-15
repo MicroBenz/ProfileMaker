@@ -10,6 +10,7 @@ const GET_USER = authConstants.defineAction('MAKE_LOGIN', promiseStates);
 const initialState = {
   isCompleteAuthFlow: false,
   isLogin: false,
+  user: {},
 };
 
 export default (state = initialState, action) => {
@@ -28,6 +29,7 @@ export default (state = initialState, action) => {
         ...state,
         isLogin: false,
         isCompleteAuthFlow: true,
+        user: {},
       };
     }
     case GET_USER.PENDING: {

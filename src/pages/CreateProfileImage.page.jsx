@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import ImageUpload from '../components/create-profile-image/ImageUpload';
 import ImageCropper from '../components/create-profile-image/ImageCropper';
+import ImageWithOverlay from '../components/preview/ImageWithOverlay';
 
 export default class CreateProfileImage extends Component {
   constructor(props) {
@@ -11,6 +12,7 @@ export default class CreateProfileImage extends Component {
       selectedOverlayImg: '',
     };
     this.onUploadImageSucceed = this.onUploadImageSucceed.bind(this);
+    this.onConfirmCropped = this.onConfirmCropped.bind(this);
   }
 
   componentDidMount() {
@@ -29,9 +31,16 @@ export default class CreateProfileImage extends Component {
     });
   }
 
+  onConfirmCropped(imgCanvas) {
+    this.setState({
+      currentStep: 3,
+      croppedImg: imgCanvas,
+    });
+  }
+
   render() {
     const { match } = this.props;
-    const { currentStep, selectedOverlayImg } = this.state;
+    const { currentStep, selectedOverlayImg, originalImg } = this.state;
     if (selectedOverlayImg === '')
       return <h1>Loading...</h1>;
     return (
@@ -42,7 +51,10 @@ export default class CreateProfileImage extends Component {
           <ImageUpload onUploadImageSucceed={this.onUploadImageSucceed} />
         }
         { currentStep === 2 &&
-          <ImageCropper overlayImg={selectedOverlayImg} img={this.state.originalImg} />
+          <ImageCropper overlayImg={selectedOverlayImg} img={originalImg} onConfirmCropped={this.onConfirmCropped} />
+        }
+        { currentStep === 3 &&
+          <ImageWithOverlay imgCanvas={this.state.croppedImg} overlayPath={selectedOverlayImg} canvasID="result-profile" />
         }
       </div>
     );

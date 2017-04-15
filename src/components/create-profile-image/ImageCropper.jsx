@@ -50,6 +50,8 @@ export default class ImageCropper extends Component {
     //   format: 'png',
     // })
     // .then(resp => console.log('complete crop:', resp));
+    const imageData = this.cropper.getCroppedCanvas();
+    this.props.onConfirmCropped(imageData);
   }
 
   render() {

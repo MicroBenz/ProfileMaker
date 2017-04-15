@@ -5,12 +5,11 @@ import { connect } from 'react-redux';
 
 import styles from './Nav.scss';
 import { actions as authActions } from '../../store/auth';
-import { clearToken, setToken } from '../../utils/token';
 
 @connect(
   ({ auth }) => ({
     isLogin: auth.isLogin,
-    isCompleteAuthFlow: auth.isCompleteAuthFlow,
+    user: auth.user,
   }),
   dispatch => ({
     setLogout() {
@@ -67,13 +66,13 @@ export default class Nav extends Component {
   handleOnLogoutWithFB() {
     FB.logout(() => {
       this.props.setLogout();
-      clearToken();
     });
   }
 
   render() {
     console.log('rerender');
-    const { isLogin, isCompleteAuthFlow } = this.props;
+    const { isLogin, user } = this.props;
+    console.log(user);
     return (
       <nav className="nav has-shadow" styleName="nav">
         <div className="container">
@@ -82,13 +81,18 @@ export default class Nav extends Component {
               <img src={require('./logo.png')} alt="ProfileMaker Logo" />
             </NavLink>
             <NavLink to="/explore" className="nav-item is-tab" activeClassName="is-active">Explore</NavLink>
-            { isCompleteAuthFlow && isLogin &&
+            { isLogin &&
               <NavLink to="/create-overlay" className="nav-item is-tab" activeClassName="is-active">Create Profile Overlay</NavLink>
             }
           </div>
           <div className="nav-right">
+            { isLogin &&
+              <div className="nav-item">
+                <p>Welcome back {user.firstName}!</p>
+              </div>
+            }
             <div className="nav-item">
-              { isCompleteAuthFlow && !isLogin &&
+              { !isLogin &&
                 <a className="button is-info" onClick={this.handleOnLoginWithFB}>
                   <span className="icon">
                     <span className="icon">
@@ -98,7 +102,7 @@ export default class Nav extends Component {
                   <span>Login with Facebook</span>
                 </a>
               }
-              { isCompleteAuthFlow && isLogin &&
+              { isLogin &&
                 <a className="button is-danger" onClick={this.handleOnLogoutWithFB}>
                   <span className="icon">
                     <span className="icon">

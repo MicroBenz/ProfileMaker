@@ -2,11 +2,13 @@ import React from 'react';
 import CSSModules from 'react-css-modules';
 import PropTypes from 'prop-types';
 
+import ImageWithOverlay from '../preview/ImageWithOverlay';
 import styles from './OverlayBlock.scss';
 
-const OverlayBlock = ({ title, description, imgPath, onClickBlock }) => (
+const OverlayBlock = ({ slug, title, description, overlayImgPath, userImgPath, onClickBlock }) => (
   <div styleName="overlay-block" onClick={onClickBlock}>
-    <img src={imgPath} alt="overlay" />
+    <img src={overlayImgPath} alt="overlay" />
+    {/*<ImageWithOverlay canvasID={slug} overlayPath={overlayImgPath} avatarImg={userImgPath} />*/}
     <h2>{title}</h2>
     <p>{description}</p>
   </div>
