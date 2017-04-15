@@ -1,7 +1,8 @@
 const express = require('express');
 const multer = require('multer');
-const { resolve } = require('path');
 const slug = require('slug');
+const utf8 = require('utf8');
+const { resolve } = require('path');
 const OverlayImage = require('../models/OverlayImage');
 
 const authMiddleware = require('../middlewares/auth.middleware');
@@ -30,26 +31,26 @@ overlayRoutes.get('/', async (req, res) => {
 });
 
 overlayRoutes.post('/', authMiddleware, upload.single('overlayImg'), async (req, res) => {
-  // console.log(req.file);
-  // console.log(req.body);
   const { title, description } = req.body;
-  // const imgPath = '';
-  const overlayImages = await OverlayImage.create({
-    userID: req.user._id,
-    title,
-    description,
-    img: req.file.filename,
-    slug: slug(title),
-  });
-  console.log(overlayImages);
-  res.send(overlayImages);
+  try {
+    const overlayImages = await OverlayImage.create({
+      userID: req.user._id,
+      title,
+      description,
+      img: req.file.filename,
+      slug: slug(utf8.encode(title)),
+    });
+    console.log(overlayImages);
+    res.send(overlayImages);
+  }
+  catch (e) {
+    res.status(400).send(e);
+  }
 });
 
 overlayRoutes.get('/:slug', async (req, res) => {
   const { slug: reqSlug } = req.params;
   const overlayImage = await OverlayImage.findOne({ slug: reqSlug });
-  console.log(reqSlug);
-  console.log(overlayImage);  
   res.send(overlayImage);
 });
 

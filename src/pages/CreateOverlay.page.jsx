@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { getToken } from '../utils/token';
 import CSSModules from 'react-css-modules';
+import { withRouter } from 'react-router';
 
+import { getToken } from '../utils/token';
 import styles from './CreateOverlay.page.scss';
 
+@withRouter
 @CSSModules(styles)
 export default class CreateOverlay extends Component {
   constructor(props) {
@@ -31,13 +33,19 @@ export default class CreateOverlay extends Component {
         method: 'POST',
         headers: {
           'x-access-token': `Bearer ${token}`,
-          // 'Content-Type': 'multipart/form-data',
-          // 'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: data,
       })
       .then(response => response.json())
-      .then(overlay => console.log(overlay));
+      .then(overlay => {
+        if (overlay.code) {
+          console.log('Something error');
+        }
+        else {
+          const { slug } = overlay;
+          this.props.history.push(`/view-overlay/${slug}`);
+        }
+      });
     }
   }
 

@@ -25,7 +25,7 @@ export default class ImageResult extends Component {
     const { overlayImg, croppedImg } = this.props;
     return (
       <div style={{ width: 400, height: 400, margin: '0 auto' }}>
-        <h2>Your image is completed!</h2>
+        <h2 style={{ paddingBottom: 10 }}>Your image is completed!</h2>
         <ImageWithOverlay imgCanvas={croppedImg} overlayPath={overlayImg} canvasID="result-profile" />
         <a className="button is-medium is-info" onClick={this.onClickDownload}>Download!</a>
       </div>

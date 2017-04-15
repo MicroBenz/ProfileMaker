@@ -10,7 +10,10 @@ const overlayImageSchema = new Schema({
   title: String,
   description: String,
   img: String,
-  slug: String,
+  slug: {
+    type: String,
+    unique: true,
+  },
 }, {
   timestamps: true,
   collection: 'overlayImage',

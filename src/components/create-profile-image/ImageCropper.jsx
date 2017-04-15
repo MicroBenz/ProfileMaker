@@ -59,14 +59,14 @@ export default class ImageCropper extends Component {
     const { img, overlayImg } = this.props;
     return (
       <div style={{ textAlign: 'center' }}>
-        <h2>Step 2: Crop your image</h2>
+        <h2 style={{ paddingBottom: 10 }}>Step 2: Crop your image</h2>
         <div>
-          <div id="image-cropper" />
+          <div id="image-cropper" style={{ paddingBottom: 10 }} />
           <button
             className="button is-medium is-info"
             onClick={this.onClickCroppedImage}
-          >ครอปรูปเสร็จแล้ว</button>
-          </div>
+          >Crop</button>
+        </div>
       </div>
     );
   }

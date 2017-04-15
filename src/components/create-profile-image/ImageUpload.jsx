@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
+import CSSModules from 'react-css-modules';
 
+import styles from './ImageUpload.scss';
+
+@CSSModules(styles)
 export default class ImageUpload extends Component {
   constructor(props) {
     super(props);
@@ -31,17 +35,14 @@ export default class ImageUpload extends Component {
   handleUploadFile(event) {
     const files = event.target.files;
     if (!files) {
-      console.log('error on select file');
       return;
     }
-    console.log('selected file', files);
     const file = files[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = (e) => {
       const img = new Image();
       img.src = e.target.result;
-      console.log('file is load');
       img.onload = () => {
         this.props.onUploadImageSucceed(this.getResizedImage(img));
       };
@@ -51,12 +52,16 @@ export default class ImageUpload extends Component {
   render() {
     return (
       <div>
-        <h2>Step 1: Upload image</h2>
-        <input
-          type="file"
-          accept="image/*"
-          onChange={this.handleUploadFile}
-        />
+        <h2 styleName="step-title">Step 1: Upload image</h2>
+        <div styleName="browse-button-wrapper">
+          <a className="button is-info">Browse</a>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={this.handleUploadFile}
+            styleName="hidden-input"
+          />
+        </div>
       </div>
     );
   }

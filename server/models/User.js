@@ -5,7 +5,10 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
   firstName: String,
   lastName: String,
-  facebookID: String,
+  facebookID: {
+    type: String,
+    unique: true,
+  },
   profileImage: String,
 }, {
   timestamps: true,
