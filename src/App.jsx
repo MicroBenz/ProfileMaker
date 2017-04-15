@@ -1,92 +1,33 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { Provider } from 'react-redux';
+import { connect } from 'react-redux';
 
-import store from './store';
-import { actions as authActions } from './store/auth';
 import AppRoutes from './routes';
 import Nav from './components/nav/Nav';
-import { getToken } from './utils/token';
 import './App.scss';
 
-export default class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isWaitingFacebookApi: true,
-    };
-  }
-
-  componentDidMount() {
-    window.fbAsyncInit = () => {
-      FB.init({
-        appId: '326628934402249',
-        cookie: true,
-        xfbml: true,
-        version: 'v2.8',
-      });
-
-      FB.getLoginStatus((response) => {
-        console.log(response);
-        // if (response.status === 'connected') {
-        //   store.dispatch(authActions.setLogin(true));
-        //   const { accessToken } = response.authResponse;
-        //   fetch('http://localhost:3000/api/auth/facebook/login')
-        // }
-        // else {
-        //   store.dispatch(authActions.setLogin(false));
-        // }
-        if (response.authResponse) {
-          const { accessToken } = response.authResponse;
-          store.dispatch(authActions.makeLogin(accessToken));
-          // store.dispatch(authActions.setLogin(true));
-        }
-        else {
-          store.dispatch(authActions.setLogin(false));
-          store.dispatch(authActions.completeAuthFlow());
-        }
-        this.setState({
-          isWaitingFacebookApi: false,
-        });
-      });
-      // const token = getToken();
-      // if (token) {
-      //   store.dispatch(authActions.setLogin(true));
-      // }
-      // else {
-      //   store.dispatch(authActions.setLogin(false));
-      // }
-    };
-
-    ((d, s, id) => {
-      let js = d.getElementsByTagName(s)[0];
-      const fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s); js.id = id;
-      js.src = '//connect.facebook.net/en_US/sdk.js';
-      fjs.parentNode.insertBefore(js, fjs);
-    })(document, 'script', 'facebook-jssdk');
-  }
-
-  render() {
-    if (this.state.isWaitingFacebookApi) {
-      return (
-        <div className="ball-pulse" style={{ width: '100%', height: '100%' }}>
-          <div style={{ backgroundColor: 'red' }} />
-          <div style={{ backgroundColor: 'red' }} />
-          <div style={{ backgroundColor: 'red' }} />
-        </div>
-      );
-    }
+const App = ({ isCompleteAuthFlow }) => {
+  if (!isCompleteAuthFlow) {
     return (
-      <Provider store={store}>
-        <Router>
-          <div style={{ width: '100%', height: '100%' }}>
-            <Nav />
-            <AppRoutes />
-          </div>
-        </Router>
-      </Provider>
-    );
+      <div className="ball-pulse" style={{ width: '100%', height: '100%' }}>
+        <div style={{ backgroundColor: 'red' }} />
+        <div style={{ backgroundColor: 'red' }} />
+        <div style={{ backgroundColor: 'red' }} />
+      </div>
+    )
   }
+  return (
+    <Router>
+      <div style={{ width: '100%', height: '100%' }}>
+        <Nav />
+        <AppRoutes />
+      </div>
+    </Router>
+  );
 }
+
+export default connect(
+  ({ auth }) => ({
+    isCompleteAuthFlow: auth.isCompleteAuthFlow,
+  }),
+)(App);

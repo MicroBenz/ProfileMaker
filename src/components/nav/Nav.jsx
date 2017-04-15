@@ -14,10 +14,10 @@ import { clearToken, setToken } from '../../utils/token';
   }),
   dispatch => ({
     setLogout() {
-      dispatch(authActions.setLogin(false));
+      dispatch(authActions.setNonLogin());
     },
-    setLogin() {
-      dispatch(authActions.setLogin(true));
+    setLogin(token) {
+      dispatch(authActions.setLoginSuccess(token));
     },
   }),
 )
@@ -53,8 +53,8 @@ export default class Nav extends Component {
         )
         .then(
           ({ token }) => {
-            setToken(token);
-            this.props.setLogin();
+            // setToken(token);
+            this.props.setLogin(token);
           },
         );
       }

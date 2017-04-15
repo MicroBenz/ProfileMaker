@@ -8,7 +8,7 @@ const baseConfig = require('./base');
 
 module.exports = merge(baseConfig, {
   entry: {
-    main: resolve(__dirname, '../src/index.js'),
+    main: ['babel-polyfill', resolve(__dirname, '../src/index.js')],
   },
   plugins: [
     new webpack.DefinePlugin({
