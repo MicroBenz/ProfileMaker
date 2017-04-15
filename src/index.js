@@ -5,8 +5,6 @@ import { Provider } from 'react-redux';
 
 import store from './store';
 import { actions as authActions } from './store/auth';
-// import AppRoutes from './routes';
-// import Nav from './components/nav/Nav';
 import App from './App';
 
 class AppContainer extends Component {
@@ -28,14 +26,10 @@ class AppContainer extends Component {
               Authorization: `Bearer ${accessToken}`,
             },
           }).then(res => res.json());
-          console.log(token);
           store.dispatch(authActions.setLoginSuccess(token));
-          // store.dispatch(authActions.makeLogin(accessToken));
-          // store.dispatch(authActions.setLogin(true));
+          store.dispatch(authActions.getUser(token));
         }
         else {
-          // store.dispatch(authActions.setLogin(false));
-          // store.dispatch(authActions.completeAuthFlow());
           store.dispatch(authActions.setNonLogin());
         }
         this.setState({

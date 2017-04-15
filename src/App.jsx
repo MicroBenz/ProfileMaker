@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -24,7 +24,7 @@ const App = ({ isCompleteAuthFlow }) => {
       </div>
     </Router>
   );
-}
+};
 
 export default connect(
   ({ auth }) => ({
