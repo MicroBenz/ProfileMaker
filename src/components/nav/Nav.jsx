@@ -18,6 +18,9 @@ import { actions as authActions } from '../../store/auth';
     setLogin(token) {
       dispatch(authActions.setLoginSuccess(token));
     },
+    getUser(token) {
+      dispatch(authActions.getUser(token));
+    },
   }),
 )
 @CSSModules(styles)
@@ -30,32 +33,19 @@ export default class Nav extends Component {
 
   handleOnLoginWithFB() {
     console.log('press login with fb');
-    FB.login((fbResponse) => {
+    FB.login(async (fbResponse) => {
       if (fbResponse.authResponse) {
         console.log('user logged in', fbResponse);
         // this.props.setLogin();
         const { accessToken } = fbResponse.authResponse;
-        fetch('http://localhost:3000/api/auth/facebook/login', {
+        const { token } = await fetch('http://localhost:3000/api/auth/facebook/login', {
           method: 'GET',
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
-        })
-        .then(
-          (response) => {
-            console.log(response);
-            if (response.ok) return response.json();
-          },
-          (error) => {
-            console.error(error);
-          },
-        )
-        .then(
-          ({ token }) => {
-            // setToken(token);
-            this.props.setLogin(token);
-          },
-        );
+        }).then(res => res.json());
+        this.props.setLogin(token);
+        this.props.getUser(token);
       }
       else {
         console.log('not log in');

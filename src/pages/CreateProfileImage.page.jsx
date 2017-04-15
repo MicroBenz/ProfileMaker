@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import ImageUpload from '../components/create-profile-image/ImageUpload';
 import ImageCropper from '../components/create-profile-image/ImageCropper';
 import ImageWithOverlay from '../components/preview/ImageWithOverlay';
+import ImageResult from '../components/create-profile-image/ImageResult';
 
 export default class CreateProfileImage extends Component {
   constructor(props) {
@@ -44,9 +45,8 @@ export default class CreateProfileImage extends Component {
     if (selectedOverlayImg === '')
       return <h1>Loading...</h1>;
     return (
-      <div>
-        <h1>Create CreateProfileImage</h1>
-        <h3>{match.params.slug} {currentStep}</h3>
+      <div style={{ textAlign: 'center' }}>
+        <h1>Create Profile Image</h1>
         { currentStep === 1 &&
           <ImageUpload onUploadImageSucceed={this.onUploadImageSucceed} />
         }
@@ -54,7 +54,7 @@ export default class CreateProfileImage extends Component {
           <ImageCropper overlayImg={selectedOverlayImg} img={originalImg} onConfirmCropped={this.onConfirmCropped} />
         }
         { currentStep === 3 &&
-          <ImageWithOverlay imgCanvas={this.state.croppedImg} overlayPath={selectedOverlayImg} canvasID="result-profile" />
+          <ImageResult croppedImg={this.state.croppedImg} overlayImg={selectedOverlayImg} slug={match.params.slug} />
         }
       </div>
     );

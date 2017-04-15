@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Cropper from 'cropperjs';
-// import Croppie from 'croppie';
+// import Cropper from 'cropperjs';
+import Croppie from 'croppie';
 
 export default class ImageCropper extends Component {
   constructor(props) {
@@ -8,72 +8,65 @@ export default class ImageCropper extends Component {
     this.state = {
       croppedImg: '',
     };
-    this.setPreviewImage = this.setPreviewImage.bind(this);
+    // this.setPreviewImage = this.setPreviewImage.bind(this);
     this.onClickCroppedImage = this.onClickCroppedImage.bind(this);
   }
 
   componentDidMount() {
-    this.cropper = new Cropper(document.getElementById('imageCropper'), {
-      aspectRatio: 1 / 1,
-      viewMode: 3,
-      ready: this.setPreviewImage,
-      cropend: this.setPreviewImage,
-    });
-    // this.croppie = new Croppie(document.getElementById('imageCropper'), {
-    //   enableExif: true,
-    //   viewport: {
-    //     width: 280,
-    //     height: 280,
-    //     type: 'square',
-    //   },
-    //   boundary: {
-    //     width: 300,
-    //     height: 300,
-    //   },
+    // this.cropper = new Cropper(document.getElementById('imageCropper'), {
+    //   aspectRatio: 1 / 1,
+    //   viewMode: 3,
+    //   ready: this.setPreviewImage,
+    //   cropend: this.setPreviewImage,
     // });
+    this.croppie = new Croppie(document.getElementById('image-cropper'), {
+      url: this.props.img,
+      enableExif: true,
+      viewport: {
+        width: 330,
+        height: 330,
+        type: 'square',
+      },
+      boundary: {
+        width: 350,
+        height: 350,
+      },
+    });
   }
 
-  setPreviewImage() {
-    const imageData = this.cropper.getCroppedCanvas().toDataURL();
-    this.setState({
-      croppedImg: imageData,
-    });
-  }
+  // setPreviewImage() {
+  //   const imageData = this.cropper.getCroppedCanvas().toDataURL();
+  //   this.setState({
+  //     croppedImg: imageData,
+  //   });
+  // }
 
   onClickCroppedImage() {
-    // this.croppie.result({
-    //   type: 'canvas',
-    //   size: {
-    //     width: 1200,
-    //     height: 1200,
-    //   },
-    //   format: 'png',
-    // })
-    // .then(resp => console.log('complete crop:', resp));
-    const imageData = this.cropper.getCroppedCanvas();
-    this.props.onConfirmCropped(imageData);
+    this.croppie.result({
+      type: 'rawcanvas',
+      size: {
+        width: 1000,
+        height: 1000,
+      },
+      format: 'png',
+    })
+    .then(resp => this.props.onConfirmCropped(resp));
+    // const imageData = this.cropper.getCroppedCanvas();
+    // this.props.onConfirmCropped(imageData);
   }
 
   render() {
     const { img, overlayImg } = this.props;
     return (
-      <div>
-        <h1>Step 2: Cropped Image</h1>
-        <div className="columns">
-          <div className="column is-6">
-            <img src={img} id="imageCropper" style={{ position: 'relative' }} />
-            <button
-              className="button is-medium is-info"
-              onClick={this.onClickCroppedImage}
-            >ครอปรูปเสร็จแล้ว</button>
+      <div style={{ textAlign: 'center' }}>
+        <h2>Step 2: Crop your image</h2>
+        <div>
+          <div id="image-cropper" />
+          <button
+            className="button is-medium is-info"
+            onClick={this.onClickCroppedImage}
+          >ครอปรูปเสร็จแล้ว</button>
           </div>
-          <div className="column is-6">
-            {/*<img src={overlayImg} />*/}
-            { this.state.croppedImg !== '' &&
-              <img src={this.state.croppedImg} />
-            }
-          </div>
-        </div>
       </div>
     );
   }

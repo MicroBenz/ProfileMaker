@@ -51,7 +51,7 @@ export default class ImageUpload extends Component {
   render() {
     return (
       <div>
-        <h1>Step 1: Upload image</h1>
+        <h2>Step 1: Upload image</h2>
         <input
           type="file"
           accept="image/*"
