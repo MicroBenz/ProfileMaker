@@ -10,5 +10,5 @@ import 'whatwg-fetch';
 import 'croppie';
 import 'croppie/croppie.css';
 import 'font-awesome/css/font-awesome';
-import 'bulma/css/bulma';
+import 'bulma/css/bulma.css';
 import 'loaders.css';

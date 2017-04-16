@@ -1,6 +1,7 @@
 import { getToken } from './token';
+import configs from '../configs';
 
-const apiEndpoint = 'http://localhost:3000/api';
+const apiEndpoint = configs.API_ENDPOINT;
 
 export const get = path => fetch(`${apiEndpoint}${path}`, {
   method: 'GET',

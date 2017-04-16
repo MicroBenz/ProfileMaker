@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import OverlayBlock from '../components/explore/OverlayBlock';
-import ImageWithOverlay from '../components/preview/ImageWithOverlay';
+import { get } from '../utils/api';
 
 @withRouter
 @connect(
@@ -19,12 +19,9 @@ export default class ExplorePage extends Component {
     };
   }
 
-  componentDidMount() {
-    fetch('http://localhost:3000/api/overlay', {
-      method: 'GET',
-    })
-    .then(response => response.json())
-    .then(overlayItems => this.setState({ overlayItems }));
+  async componentDidMount() {
+    const overlayItems = await get('/overlay');
+    this.setState({ overlayItems });
   }
 
   render() {
@@ -34,7 +31,7 @@ export default class ExplorePage extends Component {
     return (
       <div className="container">
         <h1>Explore</h1>
-        <div className="columns is-multiline" style={{ marginTop: '10px', marginBottom: '20px' }}>
+        <div className="columns is-multiline" style={{ marginBottom: '20px' }}>
           {overlayItems.map(({ _id, title, description, slug, img }) => (
             <div className="column is-3" key={title}>
               <OverlayBlock
