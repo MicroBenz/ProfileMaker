@@ -40,6 +40,9 @@ module.exports = {
               },
             },
             {
+              loader: 'resolve-url-loader',
+            },
+            {
               loader: 'sass-loader',
             },
           ],
@@ -57,7 +60,7 @@ module.exports = {
         ],
       },
       {
-        test: /\.png/,
+        test: /\.png|\.jpg/,
         use: [
           {
             loader: 'file-loader',

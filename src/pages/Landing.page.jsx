@@ -1,10 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+
+import LandingCover from '../components/landing/LandingCover';
 
 export default () => (
-  <div>
-    <h1>Landing</h1>
-    <Link to="/create-overlay">Make one</Link>
-    <Link to="/explore">Or explore</Link>
+  <div style={{ height: '100%' }}>
+    <LandingCover />
   </div>
 );

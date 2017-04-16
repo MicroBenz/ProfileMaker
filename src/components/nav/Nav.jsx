@@ -3,9 +3,9 @@ import { NavLink, Route } from 'react-router-dom';
 import CSSModules from 'react-css-modules';
 import { connect } from 'react-redux';
 
-import styles from './Nav.scss';
 import { actions as authActions } from '../../store/auth';
 import { loginWithFB } from '../../utils/auth';
+import styles from './Nav.scss';
 
 @connect(
   ({ auth }) => ({
@@ -62,7 +62,7 @@ class Nav extends Component {
         <div className="container">
           <div className="nav-left">
             <NavLink to="/" className="nav-item" styleName="branding-wrapper" exact>
-              <img src={require('./logo.png')} alt="ProfileMaker Logo" />
+              <img src={require('../../shared/logo.png')} alt="ProfileMaker Logo" />
             </NavLink>
             <NavLink to="/explore" className="nav-item is-tab" activeClassName="is-active">Explore</NavLink>
             { isLogin &&

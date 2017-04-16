@@ -32,7 +32,7 @@ export default class ExplorePage extends Component {
     const { history, user } = this.props;
     console.log(overlayItems);
     return (
-      <div>
+      <div className="container">
         <h1>Explore</h1>
         <div className="columns is-multiline" style={{ marginTop: '10px', marginBottom: '20px' }}>
           {overlayItems.map(({ _id, title, description, slug, img }) => (
