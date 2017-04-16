@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
 import CSSModules from 'react-css-modules';
-import { withRouter } from 'react-router';
+import { Redirect, withRouter } from 'react-router';
+import { connect } from 'react-redux';
 
 import { getToken } from '../utils/token';
 import styles from './CreateOverlay.page.scss';
 
 @withRouter
 @CSSModules(styles)
+@connect(
+  ({ auth }) => ({
+    isLogin: auth.isLogin,
+  }),
+)
 export default class CreateOverlay extends Component {
   constructor(props) {
     super(props);
@@ -59,6 +65,10 @@ export default class CreateOverlay extends Component {
 
   render() {
     console.log(this.state);
+    const { isLogin } = this.props;
+    if (!isLogin) {
+      return <Redirect to="/" />;
+    }
     return (
       <div className="container">
         <h1>Create Overlay</h1>

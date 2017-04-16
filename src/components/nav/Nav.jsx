@@ -3,6 +3,7 @@ import { NavLink, Route } from 'react-router-dom';
 import CSSModules from 'react-css-modules';
 import { connect } from 'react-redux';
 
+import LoginButton from './LoginButton';
 import { actions as authActions } from '../../store/auth';
 import { loginWithFB } from '../../utils/auth';
 import styles from './Nav.scss';
@@ -77,14 +78,7 @@ class Nav extends Component {
             }
             <div className="nav-item">
               { !isLogin &&
-                <a className="button is-info" onClick={this.handleOnLoginWithFB}>
-                  <span className="icon">
-                    <span className="icon">
-                      <i className="fa fa-facebook" />
-                    </span>
-                  </span>
-                  <span>Login with Facebook</span>
-                </a>
+                <LoginButton />
               }
               { isLogin &&
                 <a className="button is-danger" onClick={this.handleOnLogoutWithFB}>
