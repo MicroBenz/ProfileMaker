@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Route } from 'react-router-dom';
 import CSSModules from 'react-css-modules';
 import { connect } from 'react-redux';
 
 import styles from './Nav.scss';
 import { actions as authActions } from '../../store/auth';
+import { loginWithFB } from '../../utils/auth';
 
 @connect(
   ({ auth }) => ({
@@ -24,7 +25,7 @@ import { actions as authActions } from '../../store/auth';
   }),
 )
 @CSSModules(styles)
-export default class Nav extends Component {
+class Nav extends Component {
   constructor(props) {
     super(props);
     this.handleOnLoginWithFB = this.handleOnLoginWithFB.bind(this);
@@ -36,14 +37,8 @@ export default class Nav extends Component {
     FB.login(async (fbResponse) => {
       if (fbResponse.authResponse) {
         console.log('user logged in', fbResponse);
-        // this.props.setLogin();
         const { accessToken } = fbResponse.authResponse;
-        const { token } = await fetch('http://localhost:3000/api/auth/facebook/login', {
-          method: 'GET',
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }).then(res => res.json());
+        const { token } = await loginWithFB(accessToken);
         this.props.setLogin(token);
         this.props.getUser(token);
       }
@@ -60,19 +55,18 @@ export default class Nav extends Component {
   }
 
   render() {
-    console.log('rerender');
     const { isLogin, user } = this.props;
     console.log(user);
     return (
       <nav className="nav has-shadow" styleName="nav">
         <div className="container">
           <div className="nav-left">
-            <NavLink to="/" className="nav-item" styleName="branding-wrapper">
+            <NavLink to="/" className="nav-item" styleName="branding-wrapper" exact>
               <img src={require('./logo.png')} alt="ProfileMaker Logo" />
             </NavLink>
             <NavLink to="/explore" className="nav-item is-tab" activeClassName="is-active">Explore</NavLink>
             { isLogin &&
-              <NavLink to="/create-overlay" className="nav-item is-tab" activeClassName="is-active">Create Profile Overlay</NavLink>
+              <NavLink to="/create-overlay" className="nav-item is-tab" activeClassName="is-active" exact>Create Profile Overlay</NavLink>
             }
           </div>
           <div className="nav-right">
@@ -109,3 +103,5 @@ export default class Nav extends Component {
     );
   }
 }
+
+export default () => <Route component={Nav} />;

@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 
 import store from './store';
 import { actions as authActions } from './store/auth';
+import { loginWithFB } from './utils/auth';
 import App from './App';
 
 class AppContainer extends Component {
@@ -20,12 +21,7 @@ class AppContainer extends Component {
         console.log(response);
         if (response.authResponse) {
           const { accessToken } = response.authResponse;
-          const { token } = await fetch('http://localhost:3000/api/auth/facebook/login', {
-            method: 'GET',
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          }).then(res => res.json());
+          const { token } = await loginWithFB(accessToken);
           store.dispatch(authActions.setLoginSuccess(token));
           store.dispatch(authActions.getUser(token));
         }

@@ -14,7 +14,7 @@ const App = ({ isCompleteAuthFlow }) => {
         <div style={{ backgroundColor: 'red' }} />
         <div style={{ backgroundColor: 'red' }} />
       </div>
-    )
+    );
   }
   return (
     <Router>
