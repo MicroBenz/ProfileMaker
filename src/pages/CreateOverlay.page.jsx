@@ -67,7 +67,9 @@ export default class CreateOverlay extends Component {
     console.log(this.state);
     const { isLogin } = this.props;
     if (!isLogin) {
-      return <Redirect to="/" />;
+      return (
+        <Redirect to="/" />
+      );
     }
     return (
       <div className="container">

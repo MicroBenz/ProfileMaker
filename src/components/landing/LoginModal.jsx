@@ -14,7 +14,7 @@ export default class LoginModal extends Component {
             <button className="delete" onClick={onCloseModal} />
           </header>
           <section className="modal-card-body" style={{ textAlign: 'center' }}>
-            <h3>Login with Facebook to gain access for Create Overlay</h3>
+            <h3 style={{ paddingBottom: '20px' }}>Login with Facebook to gain access for Create Overlay</h3>
             <LoginButton />
           </section>
         </div>
