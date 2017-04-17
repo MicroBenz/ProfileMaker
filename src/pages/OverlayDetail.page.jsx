@@ -32,30 +32,18 @@ export default class OverlayDetail extends Component {
       return <div><h1>Loading...</h1></div>;
     }
     return (
-      
       <div className="container" styleName="center">
-        
-        <p styleName="picture-name">{match.params.slug}</p>
-        <div className="columns">
-          <div className="column is-3"></div>
-          <div className="column is-6">
-            <div styleName="picture_area">
-              <ImageWithOverlay canvasID={match.params.slug} overlayPath={`http://localhost:3000/api/overlay/image/${overlay.img}`} usePlaceholder />
-            </div>
-          </div>
-          <div className="column is-3"></div>
+        <h1 styleName="picture-name">{overlay.title}</h1>
+        <div styleName="picture-area">
+          <ImageWithOverlay
+            canvasID={match.params.slug}
+            overlayPath={`http://localhost:3000/api/overlay/image/${overlay.img}`}
+            usePlaceholder
+          />
         </div>
-
-        <div className="columns">
-          <div className="column is-3"></div>
-          <div styleName="describe-area">
-            <p>{overlay.description}</p>
-          </div>
-          <div className="column is-3"></div>
-        </div>
-        
+        <p styleName="describe-area">{overlay.description}</p>
         <div className="block">
-          <a className="button is-primary" onClick={() => history.push(`/create-profile-image/${match.params.slug}`)}>Create!</a>
+          <a className="button is-info" onClick={() => history.push(`/create-profile-image/${match.params.slug}`)}>Create new picture with this overlay</a>
         </div>
 
       </div>

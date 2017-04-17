@@ -42,7 +42,7 @@ export default class ExplorePage extends Component {
                 userImgPath={user.profileImage}
                 onClickBlock={() => {
                   console.log('You click:', slug);
-                  history.push(`/view-overlay/${slug}`);
+                  history.push(`/explore/${slug}`);
                 }}
                 slug={slug}
               />

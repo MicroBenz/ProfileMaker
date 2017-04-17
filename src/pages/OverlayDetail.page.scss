@@ -7,13 +7,12 @@
 }
 .picture-name{
 	font-size: 3em;
-	margin: 20px 8px;
 }
-.picture_area{
+.picture-area{
 	margin: auto;
-	width: 70%;
-	height: 70%;
-	
+	width: 350px;
+	padding-top: 15px;
+	padding-bottom: 15px;
 }
 .title-area{
 	margin: 10px 10px 10px 10px;
@@ -24,8 +23,8 @@
 	text-align: left;
 }
 .describe-area{
-	margin: 10px 10px 10px 10px;
-	padding: 10px 10px 10px 10px;
+	// margin: 10px 10px 10px 10px;
+	padding-bottom: 10px;
 	font-size: 1em;
 	width: 100%;
 	height: auto;

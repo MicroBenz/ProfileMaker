@@ -8,7 +8,15 @@ import styles from './OverlayBlock.scss';
 const OverlayBlock = ({ slug, title, description, overlayImgPath, userImgPath, onClickBlock }) => (
   <div styleName="overlay-block" onClick={onClickBlock}>
     <ImageWithOverlay canvasID={slug} overlayPath={overlayImgPath} usePlaceholder />
-    <h2>{title}</h2>
+    <h2
+      style={{
+        color: 'black',
+        textOverflow: 'ellipsis',
+        width: '100%',
+        overflow: 'hidden',
+        whiteSpace: 'nowrap',
+      }}
+    >{title}</h2>
     <p>{description}</p>
   </div>
 );

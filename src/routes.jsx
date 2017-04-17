@@ -20,6 +20,11 @@ const routes = [
     exact: true,
   },
   {
+    path: '/explore/:slug',
+    component: OverlayDetail,
+    exact: true,
+  },
+  {
     path: '/create-overlay',
     component: CreateOverlay,
     exact: true,
@@ -27,11 +32,6 @@ const routes = [
   {
     path: '/create-overlay/success',
     component: Result,
-    exact: true,
-  },
-  {
-    path: '/view-overlay/:slug',
-    component: OverlayDetail,
     exact: true,
   },
   {

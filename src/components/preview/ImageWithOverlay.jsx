@@ -37,7 +37,7 @@ export default class ImageWithOverlay extends Component {
         <canvas
           id={canvasID}
           width="1024" height="1024"
-          style={{ width: '100%', height: '100%' }}
+          style={{ width: '100%', height: '100%', border: '4px solid #4a4a4a' }}
         />
       </div>
     );
