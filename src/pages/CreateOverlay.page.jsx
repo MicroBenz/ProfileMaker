@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import CSSModules from 'react-css-modules';
 import { Redirect, withRouter } from 'react-router';
 import { connect } from 'react-redux';
+import toastr from 'toastr';
 
 import ImageWithOverlay from '../components/preview/ImageWithOverlay';
 import { post } from '../utils/api';
+import { popupSuccessToast, popupInfoToast, popupErrorToast } from '../utils/toast';
 import styles from './CreateOverlay.page.scss';
 
 @withRouter
@@ -35,13 +37,14 @@ export default class CreateOverlay extends Component {
       data.append('overlayImg', imgFile);
       data.append('title', title);
       data.append('description', description);
-      // const token = getToken();
       try {
         const overlay = await post('/overlay', data);
         if (overlay.code) {
-          console.log('something error');
+          popupErrorToast('Error', 'Can not create overlay image.');
         }
         else {
+          popupSuccessToast('Overlay created');
+          
           const { slug } = overlay;
           this.props.history.push(`/explore/${slug}`);
         }
@@ -50,12 +53,14 @@ export default class CreateOverlay extends Component {
         console.log(excp);
       }
     }
+    else {
+      this.popupErrorToastr('Form is missing some field.', 'Please fill out form.');
+    }
   }
 
   handleSelectedFile(e) {
     const self = this;
     const imgFile = e.target.files[0];
-    // console.log(imgFile);
     const reader = new FileReader();
     reader.readAsDataURL(imgFile);
     reader.onload = ({ target: { result } }) => {
@@ -63,7 +68,7 @@ export default class CreateOverlay extends Component {
       img.src = result;
       img.onload = () => {
         if (img.width / img.height !== 1) {
-          console.log('not square');
+          popupInfoToast('Non-square size image', 'Please upload square size image.');
         }
         else {
           self.setState({
@@ -126,9 +131,9 @@ export default class CreateOverlay extends Component {
                 />
               </p>
             </div>
-            <div className="field" styleName="btn-div">
+            <div className="field">
               <p className="control">
-                <button className="button is-primary" styleName="save-btn" onClick={this.handleCreateOverlay}>Save</button>
+                <button className="button is-primary" onClick={this.handleCreateOverlay}>Create overlay</button>
               </p>
             </div>
           </div>

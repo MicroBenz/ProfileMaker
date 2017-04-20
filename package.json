@@ -18,6 +18,7 @@
     "dotenv": "^4.0.0",
     "express": "^4.14.1",
     "font-awesome": "^4.7.0",
+    "jquery": "^3.2.1",
     "jsonwebtoken": "^7.3.0",
     "loaders.css": "^0.1.2",
     "mongoose": "^4.9.3",
@@ -33,6 +34,7 @@
     "redux": "^3.6.0",
     "redux-define": "^1.1.0",
     "slug": "^0.9.1",
+    "toastr": "^2.1.2",
     "utf8": "^2.1.2",
     "whatwg-fetch": "^2.0.3"
   },
