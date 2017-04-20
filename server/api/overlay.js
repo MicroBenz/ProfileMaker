@@ -12,7 +12,6 @@ const storage = multer.diskStorage({
     cb(null, resolve(__dirname, '../uploads'));
   },
   filename: (req, file, cb) => {
-    // console.log(file);
     const { mimetype, originalname } = file;
     if (mimetype !== 'image/png') {
       cb({ errorMessage: 'API Doesn\'t support non-png file type for overlay.' }, null);
@@ -22,7 +21,6 @@ const storage = multer.diskStorage({
   },
 });
 const upload = multer({ storage });
-// const upload = multer({ dest: 'uploads/' });
 const overlayRoutes = express.Router();
 
 overlayRoutes.get('/', async (req, res) => {
@@ -40,7 +38,6 @@ overlayRoutes.post('/', authMiddleware, upload.single('overlayImg'), async (req,
       img: req.file.filename,
       slug: slug(utf8.encode(title)),
     });
-    console.log(overlayImages);
     res.send(overlayImages);
   }
   catch (e) {
@@ -57,4 +54,5 @@ overlayRoutes.get('/:slug', async (req, res) => {
 overlayRoutes.get('/image/:filename', (req, res) => {
   res.sendFile(resolve(__dirname, `../uploads/${req.params.filename}`));
 });
+
 module.exports = overlayRoutes;

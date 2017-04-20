@@ -62,7 +62,6 @@ export default class CreateOverlay extends Component {
       const img = new Image();
       img.src = result;
       img.onload = () => {
-        console.log(img.width, img.height);
         if (img.width / img.height !== 1) {
           console.log('not square');
         }
@@ -77,7 +76,6 @@ export default class CreateOverlay extends Component {
   }
 
   render() {
-    console.log(this.state);
     const { isLogin } = this.props;
     const { imgPreview } = this.state;
     if (!isLogin) {
@@ -85,11 +83,10 @@ export default class CreateOverlay extends Component {
         <Redirect to="/" />
       );
     }
-    console.log('rerender');
     return (
       <div className="container">
         <h1>Create Overlay</h1>
-        <div className="columns">
+        <div className="columns" style={{ paddingTop: '10px' }}>
           <div className="column is-4" styleName="upload-column">
             {imgPreview === null &&
               <img src={require('./upload_preview.png')} alt="upload preview" />

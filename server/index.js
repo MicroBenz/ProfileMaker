@@ -1,6 +1,5 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const multer = require('multer');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const passport = require('passport');
@@ -9,7 +8,6 @@ require('dotenv').config();
 
 mongoose.connect(process.env.DATABASE_HOST);
 mongoose.Promise = global.Promise;
-const api = require('./api');
 
 // Setup Passport authen
 passport.use('facebook-token', new FacebookTokenStrategy({
@@ -23,8 +21,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(passport.initialize());
 app.use(cors());
 
-app.use('/api/', api);
+app.use('/api/', require('./api'));
 
-app.listen(3000, () => {
+app.listen(process.env.PORT, () => {
   console.log('ProfileMaker API Listening on 3000');
 });

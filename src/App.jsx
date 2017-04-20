@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import FullScreenLoader from './components/loader/FullScreenLoader';
 import AppRoutes from './routes';
 import Nav from './components/nav/Nav';
 import './App.scss';
@@ -9,11 +10,7 @@ import './App.scss';
 const App = ({ isCompleteAuthFlow }) => {
   if (!isCompleteAuthFlow) {
     return (
-      <div className="ball-pulse" style={{ width: '100%', height: '100%' }}>
-        <div style={{ backgroundColor: 'red' }} />
-        <div style={{ backgroundColor: 'red' }} />
-        <div style={{ backgroundColor: 'red' }} />
-      </div>
+      <FullScreenLoader />
     );
   }
   return (
