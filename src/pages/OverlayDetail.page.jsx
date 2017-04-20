@@ -16,7 +16,7 @@ export default class OverlayDetail extends Component {
   }
 
   componentDidMount() {
-    const { match } = this.props;    
+    const { match } = this.props;
     fetch(`http://localhost:3000/api/overlay/${match.params.slug}`, {
       method: 'GET',
     })
@@ -43,7 +43,7 @@ export default class OverlayDetail extends Component {
         </div>
         <p styleName="describe-area">{overlay.description}</p>
         <div className="block">
-          <a className="button is-info" onClick={() => history.push(`/create-profile-image/${match.params.slug}`)}>Create new picture with this overlay</a>
+          <a className="button is-info" onClick={() => history.push(`/explore/${match.params.slug}/create-profile-image`)}>Create new picture with this overlay</a>
         </div>
 
       </div>

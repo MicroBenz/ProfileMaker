@@ -4,9 +4,19 @@ import placeholderImg from './placeholder-grey.png';
 
 export default class ImageWithOverlay extends Component {
   componentDidMount() {
-    const { overlayPath, avatarImg, canvasID, imgCanvas, usePlaceholder } = this.props;
+    this.drawOverlay(this.props);
+  }
+
+  componentWillUpdate(nextProps) {
+    const { overlayPath, avatarImg, canvasID, imgCanvas, usePlaceholder } = nextProps;
+    if (this.props.overlayPath !== overlayPath) this.drawOverlay(nextProps);
+  }
+
+  drawOverlay(props) {
+    const { overlayPath, avatarImg, canvasID, imgCanvas, usePlaceholder } = props;
     const destCanvas = document.getElementById(canvasID);
     const destContext = destCanvas.getContext('2d');
+    destContext.clearRect(0, 0, destCanvas.width, destCanvas.height);
     if (usePlaceholder) {
       const avatarImgObj = new Image();
       avatarImgObj.src = placeholderImg;
@@ -30,6 +40,7 @@ export default class ImageWithOverlay extends Component {
       };
     }
   }
+
   render() {
     const { canvasID, overlayPath, avatarImg } = this.props;
     return (

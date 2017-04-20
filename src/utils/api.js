@@ -10,7 +10,7 @@ export const get = path => fetch(`${apiEndpoint}${path}`, {
   },
 }).then(res => res.json());
 
-export const post = (path, body) => fetch(`${apiEndpoint}/${path}`, {
+export const post = (path, body = {}) => fetch(`${apiEndpoint}${path}`, {
   method: 'POST',
   headers: {
     'x-access-token': `Bearer ${getToken()}`,

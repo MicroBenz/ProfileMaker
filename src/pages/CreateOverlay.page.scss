@@ -17,9 +17,6 @@
   margin-left:auto;
   margin-right:auto;
 }
-.img-form{
-  margin-top:65px;
-}
 .img-desc{
   padding-top:0px;
 }
@@ -29,3 +26,25 @@
 .save-btn{
   width:120px;
 }
+
+.upload-column {
+  text-align: center;
+  .upload-suggestion {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  .upload-btn-wrapper {
+    position: relative;
+    display: inline-block;
+    .hidden-upload {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      -webkit-appearance: none;
+      opacity: 0;
+    }
+  }
+}
+

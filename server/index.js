@@ -15,11 +15,7 @@ const api = require('./api');
 passport.use('facebook-token', new FacebookTokenStrategy({
   clientID: process.env.FACEBOOK_ID,
   clientSecret: process.env.FACEBOOK_SECRET,
-}, (token, refreshToken, profile, done) => {
-  // console.log('passport middleware');
-  // console.log(profile, token, refreshToken);
-  return done(null, profile);
-}));
+}, (token, refreshToken, profile, done) => done(null, profile)));
 
 const app = express();
 app.use(bodyParser.json());

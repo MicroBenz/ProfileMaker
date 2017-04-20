@@ -27,7 +27,6 @@ export default class ExplorePage extends Component {
   render() {
     const { overlayItems } = this.state;
     const { history, user } = this.props;
-    console.log(overlayItems);
     return (
       <div className="container">
         <h1>Explore</h1>
@@ -40,10 +39,7 @@ export default class ExplorePage extends Component {
                 description={description}
                 overlayImgPath={`http://localhost:3000/api/overlay/image/${img}`}
                 userImgPath={user.profileImage}
-                onClickBlock={() => {
-                  console.log('You click:', slug);
-                  history.push(`/explore/${slug}`);
-                }}
+                onClickBlock={() => history.push(`/explore/${slug}`)}
                 slug={slug}
               />
             </div>
