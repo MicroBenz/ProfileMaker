@@ -1,10 +1,35 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
+import { actions as createProfileActions } from '../store/createProfile';
+import { get } from '../utils/api';
 import ImageUpload from '../components/create-profile-image/ImageUpload';
 import ImageCropper from '../components/create-profile-image/ImageCropper';
-import ImageWithOverlay from '../components/preview/ImageWithOverlay';
+import FullScreenLoader from '../components/loader/FullScreenLoader';
 import ImageResult from '../components/create-profile-image/ImageResult';
 
+@connect(
+  ({ createProfile }) => ({
+    selectedOverlayImg: createProfile.selectedOverlayImg,
+    userImage: createProfile.image,
+    currentStep: createProfile.currentStep,
+  }),
+  dispatch => ({
+    setSelectedOverlay(imagePath) {
+      dispatch(createProfileActions.setSelectedOverlay(imagePath));
+    },
+    onUploadImageSucceed(imageDataURL) {
+      dispatch(createProfileActions.onUploadImageSucceed(imageDataURL));
+    },
+    onConfirmCropped(imageCanvas) {
+      console.log(imageCanvas);
+      dispatch(createProfileActions.onConfirmCropped(imageCanvas));
+    },
+    clearState() {
+      dispatch(createProfileActions.clearState());
+    },
+  }),
+)
 export default class CreateProfileImage extends Component {
   constructor(props) {
     super(props);
@@ -12,17 +37,20 @@ export default class CreateProfileImage extends Component {
       currentStep: 1,
       selectedOverlayImg: '',
     };
-    this.onUploadImageSucceed = this.onUploadImageSucceed.bind(this);
-    this.onConfirmCropped = this.onConfirmCropped.bind(this);
+    // this.onUploadImageSucceed = this.onUploadImageSucceed.bind(this);
+    // this.onConfirmCropped = this.onConfirmCropped.bind(this);
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    this.props.clearState();
     const { match } = this.props;
-    fetch(`http://localhost:3000/api/overlay/${match.params.slug}`, {
-      method: 'GET',
-    })
-    .then(response => response.json())
-    .then(({ img }) => this.setState({ selectedOverlayImg: `http://localhost:3000/api/overlay/image/${img}` }));
+    const { img } = await get(`/overlay/${match.params.slug}`);
+    this.props.setSelectedOverlay(`http://localhost:3000/api/overlay/image/${img}`);
+    // fetch(`http://localhost:3000/api/overlay/${match.params.slug}`, {
+    //   method: 'GET',
+    // })
+    // .then(response => response.json())
+    // .then(({ img }) => this.props.setSelectedOverlay(`http://localhost:3000/api/overlay/image/${img}`));
   }
 
   onUploadImageSucceed(imgDataURL) {
@@ -40,21 +68,30 @@ export default class CreateProfileImage extends Component {
   }
 
   render() {
-    const { match } = this.props;
-    const { currentStep, selectedOverlayImg, originalImg } = this.state;
-    if (selectedOverlayImg === '')
-      return <h1>Loading...</h1>;
+    const { match, selectedOverlayImg, currentStep, userImage } = this.props;
+    const { originalImg } = this.state;
+    if (selectedOverlayImg === '') return <FullScreenLoader />;
     return (
       <div style={{ textAlign: 'center' }}>
         <h1>Create Profile Image</h1>
         { currentStep === 1 &&
-          <ImageUpload onUploadImageSucceed={this.onUploadImageSucceed} />
+          <ImageUpload
+            onUploadImageSucceed={this.props.onUploadImageSucceed}
+          />
         }
         { currentStep === 2 &&
-          <ImageCropper overlayImg={selectedOverlayImg} img={originalImg} onConfirmCropped={this.onConfirmCropped} />
+          <ImageCropper
+            overlayImg={this.props.selectedOverlayImg}
+            img={this.props.userImage}
+            onConfirmCropped={this.props.onConfirmCropped}
+          />
         }
         { currentStep === 3 &&
-          <ImageResult croppedImg={this.state.croppedImg} overlayImg={selectedOverlayImg} slug={match.params.slug} />
+          <ImageResult
+            croppedImg={userImage}
+            overlayImg={selectedOverlayImg}
+            slug={match.params.slug}
+          />
         }
       </div>
     );

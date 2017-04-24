@@ -1,20 +1,17 @@
 /* eslint-disable import/no-extraneous-dependencies */
 const webpack = require('webpack');
 const merge = require('webpack-merge');
-const { resolve } = require('path');
+// const { resolve } = require('path');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const baseConfig = require('./base');
 
 module.exports = merge(baseConfig, {
-  entry: {
-    main: ['babel-polyfill', resolve(__dirname, '../src/index.js')],
-  },
   plugins: [
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production'),
     }),
-    new webpack.optimize.OccurrenceOrderPlugin(),    
+    new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.LoaderOptionsPlugin({
       minimize: true,
       debug: false,

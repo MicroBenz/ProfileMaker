@@ -9,12 +9,13 @@ export default class ImageResult extends Component {
   }
 
   onClickDownload() {
+    console.log(this.props.slug);
     const resultCanvas = document.getElementById('result-profile');
     resultCanvas.crossOrigin = 'Anonymous';
     const img = resultCanvas.toDataURL('image/png');
     const temp = document.createElement('a');
     temp.setAttribute('href', img);
-    temp.setAttribute('download', `profile-${this.props.slug}.png`);
+    temp.setAttribute('download', 'profile.png');
     temp.style.display = 'none';
     document.body.appendChild(temp);
     temp.click();

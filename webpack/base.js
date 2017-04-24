@@ -6,6 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: {
+    main: ['babel-polyfill', resolve(__dirname, '../src/index.js')],
     vendor: resolve(__dirname, '../src/vendor.js'),
   },
   resolve: {
@@ -37,6 +38,12 @@ module.exports = {
                 importLoaders: 2,
                 localIdentName: '[name]__[local]___[hash:base64:5]',
                 autoprefixer: true,
+              },
+            },
+            {
+              loader: 'postcss-loader',
+              options: {
+                plugins: () => [require('autoprefixer')],
               },
             },
             {
